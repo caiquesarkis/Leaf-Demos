@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,10 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "@types/lodash": "^4.14.179",
+    "browser-sync": "^2.27.7",
     "leaf-engine": "^1.0.6",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "browser-sync-webpack-plugin": "^2.3.0",
     "eslint": "^8.10.0",
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2"

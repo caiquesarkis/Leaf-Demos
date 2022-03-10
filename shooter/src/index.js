@@ -10,6 +10,10 @@ scene.addComponent(Components.Text, 'Text')
 let player = new Entity()
 player.addComponents(['Transform', 'Box2d'])
 
+console.log({player}.prototype)
+
+
+
 let fpsDisplayer = new Entity()
 fpsDisplayer.addComponents(['Transform', 'Text'])
 
@@ -18,9 +22,8 @@ scene.addEntity(player)
 
 scene.addSystem((scene)=>{
     let playerTransform = scene.getEntityComponent(player.id, "Transform")
-    playerTransform.scale = 60
-    playerTransform.angle += 2*Math.PI/360
-
+    playerTransform.scale =  20*Math.cos(playerTransform.angle)
+    playerTransform.angle += 2*Math.PI/90
 }, 'playerSpawn')
 
 scene.addSystem((scene)=>{
