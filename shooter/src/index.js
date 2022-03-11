@@ -4,34 +4,27 @@ import { Scene, Entity, Components } from '../../../Leaf.TS/dist/index.js'
 let scene = new Scene('main', window.innerWidth, window.innerHeight)
 scene.addComponent(Components.Transform, 'Transform')
 scene.addComponent(Components.Geometry.Box2d, 'Box2d')
-scene.addComponent(Components.Text, 'Text')
 
 
 let player = new Entity()
 player.addComponents(['Transform', 'Box2d'])
-
-console.log({player}.prototype)
-
-
-
-let fpsDisplayer = new Entity()
-fpsDisplayer.addComponents(['Transform', 'Text'])
-
-scene.addEntity(fpsDisplayer)
 scene.addEntity(player)
 
-scene.addSystem((scene)=>{
-    let playerTransform = scene.getEntityComponent(player.id, "Transform")
-    playerTransform.scale =  20*Math.cos(playerTransform.angle)
-    playerTransform.angle += 2*Math.PI/90
-}, 'playerSpawn')
+
+let player2 = new Entity()
+player2.addComponents(['Transform', 'Box2d'])
+scene.addEntity(player2)
 
 scene.addSystem((scene)=>{
-    let textTransform = scene.getEntityComponent(fpsDisplayer.id, "Transform")
-    let fpsText = scene.getEntityComponent(fpsDisplayer.id, "Text")
-    fpsText.size = 18
-    fpsText.value = `Fps ${scene.fps}`
-    textTransform.position = new Vector2d(scene.width/3, - scene.height/2 + 30)
-}, 'FpsDisplayer')
+    let playerTransformPool = scene.get("Transform")
+    for(let ID in playerTransformPool){
+        let entity = playerTransformPool[ID]
+        entity.position = new Vector2d((Math.random()-0.5)*100, (Math.random()-0.5)*100)
+        entity.scale =  20*Math.cos(entity.angle)
+        entity.angle += 2*Math.PI/90
+    }
+   }
+, 'playerSpawn')
+
 scene.start()
 console.log(scene)
